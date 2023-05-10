@@ -1,0 +1,21 @@
+# /etc/systemd/system/ChatGPT-SlackBot.service
+# systemctl daemon-reload
+# systemctl start ChatGPT-SlackBot
+# systemctl enable ChatGPT-SlackBot
+[Unit]
+Description=Launch a Slack bot that supports ChatGPT-Server
+Requires=docker.service
+After=docker.service
+
+[Service]
+Type=simple
+Restart=always
+RestartSec=30s
+WorkingDirectory=/home/foo/docker/ChatGPT-SlakBot
+
+ExecStart=/usr/bin/docker compose -f docker-compose.yml up
+ExecStop=/usr/bin/docker compose -f docker-compose.yml down
+
+
+[Install]
+WantedBy=multi-user.target
